@@ -17,9 +17,23 @@ Add this to your Gemfile:
 Usage
 =====
 
-    class Topic < ActiveRecord::Base
-       ignore_columns :attributes, :class
-    end
+```ruby
+class Topic < ActiveRecord::Base
+   ignore_columns :column_one, :column_two, :column_three
+end
+```
+
+Note: `table_name_prefix` can cause issues, the `ignore_columns` invocation
+must go after any prefix definition eg:
+```ruby
+class Topic < ActiveRecord::Base
+   self.table_name_prefix = 'some_prefix'
+
+   # IMPORTANT the ignore_columns invocation must go after any table_name_prefix
+   ignore_columns :column_one, :column_two, :column_three
+end
+```
+
 
 Rails Versions
 ==============
